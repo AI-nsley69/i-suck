@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "i-suck",
   "version": "${version}",
 
   "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "crappy minecraft hack",
   "authors": [
-    "Me!"
+    "Trainsley69"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/AI-nsley69/i-suck"
   },
 
   "license": "CC0-1.0",
@@ -19,11 +19,11 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.trainsley69.isuck.ISuck"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "i-suck.mixins.json"
   ],
 
   "depends": {
