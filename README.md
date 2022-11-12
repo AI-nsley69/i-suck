@@ -1,11 +1,15 @@
 # I suck
 to be a minecraft hack mod
 
+# Features
+```
+Flyhack
+Auto-fishing
+```
+
 # Roadmap
 ```
 Fullbright
-Flyhack
-Auto-fishing
 Safe AFK
 X-ray
 ```
