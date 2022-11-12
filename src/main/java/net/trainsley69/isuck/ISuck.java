@@ -34,5 +34,15 @@ public class ISuck implements ModInitializer {
 		private static boolean Flying = false;
 		public static boolean isFlying() { return Flying; }
 		public static void setFlying(boolean flying) { Flying = flying; }
+
+		private static boolean Fullbright = false;
+
+		public static boolean isFullbright() {
+			return Fullbright;
+		}
+
+		public static void setFullbright(boolean fullbright) {
+			Fullbright = fullbright;
+		}
 	}
 }

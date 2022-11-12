@@ -30,8 +30,14 @@ public class ISuckScreen extends Screen {
                     ISuck.Config.setFlying(!ISuck.Config.isFlying());
                     btn.setMessage(Flying());
                 }));
+        // Fullbright
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 150, 200, 20, Fullbright(),
+                btn -> {
+                    ISuck.Config.setFullbright(!ISuck.Config.isFullbright());
+                    btn.setMessage(Fullbright());
+                }));
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 150, 200, 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 180, 200, 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
@@ -45,5 +51,10 @@ public class ISuckScreen extends Screen {
     Text Flying() {
         String string = "Flying: ";
         return Text.literal(string + (ISuck.Config.isFlying() ? "Enabled" : "Disabled"));
+    }
+
+    Text Fullbright() {
+        String string = "Fullbright: ";
+        return Text.literal(string + (ISuck.Config.isFullbright() ? "Enabled" : "Disabled"));
     }
 }
