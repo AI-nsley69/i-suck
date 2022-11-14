@@ -17,6 +17,11 @@ public class ISuckScreen extends Screen {
         this.settings = settings;
     }
 
+    @Override
+    public void removed() {
+        ISuck.writeConfig();
+    }
+
     protected void init() {
         // Autofishing button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 90, 200, 20, AutoFishing(),
