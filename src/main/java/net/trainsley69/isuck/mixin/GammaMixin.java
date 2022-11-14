@@ -24,6 +24,6 @@ public class GammaMixin {
                 x -> {}
         );
 
-        cir.setReturnValue(ISuck.Config.isFullbright() ? fullbrightGamma : gamma);
+        cir.setReturnValue(ISuck.config.Fullbright ? fullbrightGamma : gamma);
     }
 }

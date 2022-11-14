@@ -25,7 +25,7 @@ public abstract class FishingBobberEntityMixin {
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
 
-        if (caughtFish && ISuck.Config.isAutoFish()) {
+        if (caughtFish && ISuck.config.AutoFish) {
             Runnable recast = () -> client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
             client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
             ses.schedule(recast, 300, TimeUnit.MILLISECONDS);

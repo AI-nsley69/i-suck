@@ -26,19 +26,19 @@ public class ISuckScreen extends Screen {
         // Autofishing button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 90, 200, 20, AutoFishing(),
                 btn -> {
-                    ISuck.Config.setAutoFish(!ISuck.Config.isAutoFish());
+                    ISuck.config.AutoFish = !ISuck.config.AutoFish;
                     btn.setMessage(AutoFishing());
                 }));
         // Flying button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 120, 200, 20, Flying(),
                 btn -> {
-                    ISuck.Config.setFlying(!ISuck.Config.isFlying());
+                    ISuck.config.Flying = !ISuck.config.Flying;
                     btn.setMessage(Flying());
                 }));
         // Fullbright
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 150, 200, 20, Fullbright(),
                 btn -> {
-                    ISuck.Config.setFullbright(!ISuck.Config.isFullbright());
+                    ISuck.config.Fullbright = !ISuck.config.Fullbright;
                     btn.setMessage(Fullbright());
                 }));
         // Back button
@@ -50,16 +50,16 @@ public class ISuckScreen extends Screen {
 
     Text AutoFishing() {
         String string = "Auto Fishing: ";
-        return Text.literal(string + (ISuck.Config.isAutoFish() ? "Enabled" : "Disabled"));
+        return Text.literal(string + (ISuck.config.AutoFish ? "Enabled" : "Disabled"));
     }
 
     Text Flying() {
         String string = "Flying: ";
-        return Text.literal(string + (ISuck.Config.isFlying() ? "Enabled" : "Disabled"));
+        return Text.literal(string + (ISuck.config.Flying ? "Enabled" : "Disabled"));
     }
 
     Text Fullbright() {
         String string = "Fullbright: ";
-        return Text.literal(string + (ISuck.Config.isFullbright() ? "Enabled" : "Disabled"));
+        return Text.literal(string + (ISuck.config.Fullbright ? "Enabled" : "Disabled"));
     }
 }

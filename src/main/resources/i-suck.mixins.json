@@ -8,7 +8,7 @@
   "client": [
     "FishingBobberEntityMixin",
     "GameMenuScreenMixin",
-    "PlayerEntityMixin",
+    "ClientPlayerEntityMixin",
     "GammaMixin"
   ],
   "injectors": {
