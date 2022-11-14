@@ -3,13 +3,13 @@
   "id": "i-suck",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "I Suck",
   "description": "crappy minecraft hack",
   "authors": [
     "Trainsley69"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "https://portfolio.trainsley69.me/",
     "sources": "https://github.com/AI-nsley69/i-suck"
   },
 
