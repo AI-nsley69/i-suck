@@ -80,4 +80,8 @@ public class ISuck implements ModInitializer {
 
 		public boolean Fullbright = false;
 	}
+
+	public static class Shared {
+		public static int recastDelay = 0;
+	}
 }

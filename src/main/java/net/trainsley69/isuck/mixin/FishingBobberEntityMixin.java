@@ -10,13 +10,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Mixin(FishingBobberEntity.class)
 public abstract class FishingBobberEntityMixin {
-    ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
     @Shadow
     private boolean caughtFish;
 
@@ -24,12 +20,9 @@ public abstract class FishingBobberEntityMixin {
     @Inject(method = "onTrackedDataSet", at = @At("TAIL"))
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
-
         if (caughtFish && ISuck.config.AutoFish) {
-            Runnable recast = () -> client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
             client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
-            ses.schedule(recast, 300, TimeUnit.MILLISECONDS);
-            ses.shutdown();
+            ISuck.Shared.recastDelay = 6;
         }
     }
 }

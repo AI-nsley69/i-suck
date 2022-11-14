@@ -5,7 +5,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -22,6 +24,8 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
 
     private int restoreCounter = 0;
     private boolean wasTriggered = false;
+
+    private int recastCounter = 0;
 
     public ClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
         super(world, pos, yaw, gameProfile, publicKey);
@@ -64,9 +68,16 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
             // Set the new y speed and update the tickCounter
             this.setVelocity(velocity.x, motionY, velocity.z);
             tickCounter++;
-            ISuck.LOGGER.info("Tick Counter: " + restoreCounter);
         } else {
             abilities.flying = false;
+        }
+
+        if (ISuck.config.AutoFish) {
+            if (ISuck.Shared.recastDelay > 0) ISuck.Shared.recastDelay--;
+            if (ISuck.Shared.recastDelay == 1 && this.getMainHandStack().getItem() == Items.FISHING_ROD) {
+                MinecraftClient client = MinecraftClient.getInstance();
+                client.interactionManager.interactItem(this, Hand.MAIN_HAND);
+            }
         }
     }
 }
