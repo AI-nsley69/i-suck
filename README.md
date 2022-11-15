@@ -7,12 +7,12 @@ Flyhack
 Auto-fishing
 Fullbright
 Auto-replant crops
+X-ray
 ```
 
 # Roadmap
 ```
 Safe AFK
-X-ray
 Freecam
 Periodic Hit
 Autoclicker
