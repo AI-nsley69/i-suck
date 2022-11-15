@@ -85,5 +85,7 @@ public class ISuck implements ModInitializer {
 
 	public static class Shared {
 		public static int recastDelay = 0;
+
+		public static int replantDelay = 0;
 	}
 }

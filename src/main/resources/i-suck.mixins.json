@@ -9,7 +9,8 @@
     "FishingBobberEntityMixin",
     "GameMenuScreenMixin",
     "ClientPlayerEntityMixin",
-    "GammaMixin"
+    "GammaMixin",
+    "BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
