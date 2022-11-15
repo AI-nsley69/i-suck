@@ -25,7 +25,7 @@ public class ISuckScreen extends Screen {
         int y = 5 / 2;
         int buttonW = 150;
         int buttonH = 20;
-        int buttonOffset = 10;
+        int buttonOffset = 4;
         int height = this.height / 4;
         int width1 = this.width / 3 - buttonOffset - (buttonW / 2);
         int width2 = this.width - this.width / 3 + buttonOffset - (buttonW / 2);
