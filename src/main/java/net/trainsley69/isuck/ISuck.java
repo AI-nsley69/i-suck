@@ -32,7 +32,14 @@ public class ISuck implements ModInitializer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		verifyConfig(config);
+
 		LOGGER.info("Finished loading config");
+	}
+
+	private void verifyConfig(Config config) {
+		if (config.XRay) config.XRay = false;
 	}
 
 	private void loadConfig() throws IOException {

@@ -2,6 +2,8 @@ package net.trainsley69.isuck.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.trainsley69.isuck.ISuck;
 
 import java.util.Set;
 
@@ -30,5 +32,12 @@ public class XRayHelper {
 
     public static boolean isAllowed(Block block) {
         return allowedBlocks.contains(block);
+    }
+
+    public static void changeSetting() {
+        MinecraftClient client = MinecraftClient.getInstance();
+        // Change chunk culling, ambient occlusion and then reload the world
+        client.chunkCullingEnabled = !ISuck.config.XRay;
+        client.worldRenderer.reload();
     }
 }

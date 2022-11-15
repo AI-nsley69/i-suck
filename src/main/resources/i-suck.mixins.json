@@ -10,7 +10,10 @@
     "GameMenuScreenMixin",
     "ClientPlayerEntityMixin",
     "GammaMixin",
-    "BlockMixin"
+    "BlockMixin",
+    "MinecraftClientMixin",
+    "BlockModelRendererMixin",
+    "FluidRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

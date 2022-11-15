@@ -8,6 +8,8 @@ import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
+import net.trainsley69.isuck.utils.XRayHelper;
+
 public class ISuckScreen extends Screen {
     private Screen parent;
     private GameOptions settings;
@@ -50,8 +52,7 @@ public class ISuckScreen extends Screen {
                 btn -> {
                     ISuck.config.XRay = !ISuck.config.XRay;
                     btn.setMessage(XRay());
-                    MinecraftClient client = MinecraftClient.getInstance();
-                    client.worldRenderer.reload();
+                    XRayHelper.changeSetting();
                 }));
 
         // RIGHT ROW

@@ -47,7 +47,7 @@ public class BlockMixin {
         }
     }
 
-    @Inject(at=@At("RETURN"), method="shouldDrawSide", cancellable = true)
+    @Inject(at=@At("RETURN"), method="shouldDrawSide()Z", cancellable = true)
     private static void shouldDrawSide(BlockState state, BlockView world, BlockPos pos, Direction side, BlockPos otherPos, CallbackInfoReturnable<Boolean> cr) {
         if (ISuck.config.XRay) cr.setReturnValue(isAllowed(state.getBlock()));
     }
