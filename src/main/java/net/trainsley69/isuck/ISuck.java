@@ -81,6 +81,8 @@ public class ISuck implements ModInitializer {
 		public boolean Fullbright = false;
 
 		public boolean AutoReplant = false;
+
+		public boolean XRay = false;
 	}
 
 	public static class Shared {

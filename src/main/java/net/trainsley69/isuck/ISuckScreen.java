@@ -1,8 +1,10 @@
 package net.trainsley69.isuck;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
@@ -43,6 +45,14 @@ public class ISuckScreen extends Screen {
                     ISuck.config.Flying = !ISuck.config.Flying;
                     btn.setMessage(Flying());
                 }));
+        // XRay
+        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, XRay(),
+                btn -> {
+                    ISuck.config.XRay = !ISuck.config.XRay;
+                    btn.setMessage(XRay());
+                    MinecraftClient client = MinecraftClient.getInstance();
+                    client.worldRenderer.reload();
+                }));
 
         // RIGHT ROW
         // Fullbright
@@ -58,7 +68,7 @@ public class ISuckScreen extends Screen {
                 }));
 
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 3 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 4 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
@@ -82,5 +92,10 @@ public class ISuckScreen extends Screen {
     Text AutoReplant() {
         String string = "AutoReplant: ";
         return Text.literal(string + (ISuck.config.AutoReplant ? "Enabled" : "Disabled"));
+    }
+
+    Text XRay() {
+        String string = "XRay: ";
+        return Text.literal(string + (ISuck.config.XRay ? "Enabled" : "Disabled"));
     }
 }
