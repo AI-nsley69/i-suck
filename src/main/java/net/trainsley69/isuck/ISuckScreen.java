@@ -41,8 +41,13 @@ public class ISuckScreen extends Screen {
                     ISuck.config.Fullbright = !ISuck.config.Fullbright;
                     btn.setMessage(Fullbright());
                 }));
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 180, 200, 20, AutoReplant(),
+                btn -> {
+                    ISuck.config.AutoReplant = !ISuck.config.AutoReplant;
+                    btn.setMessage(AutoReplant());
+                }));
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 180, 200, 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 210, 200, 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
@@ -61,5 +66,10 @@ public class ISuckScreen extends Screen {
     Text Fullbright() {
         String string = "Fullbright: ";
         return Text.literal(string + (ISuck.config.Fullbright ? "Enabled" : "Disabled"));
+    }
+
+    Text AutoReplant() {
+        String string = "AutoReplant: ";
+        return Text.literal(string + (ISuck.config.AutoReplant ? "Enabled" : "Disabled"));
     }
 }

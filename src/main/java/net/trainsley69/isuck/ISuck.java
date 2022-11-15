@@ -79,6 +79,8 @@ public class ISuck implements ModInitializer {
 		public boolean Flying = false;
 
 		public boolean Fullbright = false;
+
+		public boolean AutoReplant = false;
 	}
 
 	public static class Shared {
