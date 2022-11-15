@@ -23,11 +23,12 @@ public class ISuckScreen extends Screen {
 
     protected void init() {
         int y = 5 / 2;
-        int height = this.height / 4;
-        int width1 = this.width / 3 - 5;
-        int width2 = (this.width - this.width / 3) - 5;
         int buttonW = 150;
         int buttonH = 20;
+        int buttonOffset = 10;
+        int height = this.height / 4;
+        int width1 = this.width / 3 - buttonOffset - (buttonW / 2);
+        int width2 = this.width - this.width / 3 + buttonOffset - (buttonW / 2);
 
         // LEFT ROW
         // Autofishing button
@@ -57,7 +58,7 @@ public class ISuckScreen extends Screen {
                 }));
 
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 20, (height + 5 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 3 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
