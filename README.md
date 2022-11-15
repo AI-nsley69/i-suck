@@ -5,11 +5,15 @@ to be a minecraft hack mod
 ```
 Flyhack
 Auto-fishing
+Fullbright
+Auto-replant crops
 ```
 
 # Roadmap
 ```
-Fullbright
 Safe AFK
 X-ray
+Freecam
+Periodic Hit
+Autoclicker
 ```
