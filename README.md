@@ -8,6 +8,7 @@ Auto-fishing
 Fullbright
 Auto-replant crops
 X-ray
+NoFog
 ```
 
 # Roadmap
