@@ -1,5 +1,9 @@
 # I suck
-to be a minecraft hack mod
+A fabric hacked client (mod?). 
+
+**DO NOT USE TO RUIN EXPERIENCE FOR OTHERS**
+
+Mostly created as a learning tool.
 
 # Features
 ```
