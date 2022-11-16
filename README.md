@@ -4,12 +4,14 @@ to be a minecraft hack mod
 # Features
 ```
 Flyhack
-Auto-fishing
+AutoFishing
 Fullbright
 Auto-replant crops
 X-ray
 NoFog
+NoAbuse
 ```
+[Features explanation]()
 
 # Roadmap
 ```
