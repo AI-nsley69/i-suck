@@ -107,6 +107,11 @@ public class ISuck implements ModInitializer {
 		public static class NoFog {
 			public static float FOG_START = -8.0f;
 			public static float FOG_END = 1_000_000.0f;
+
+			public class SUBMERSED {
+				public static float FOG_START = -8.0f;
+				public static float FOG_END = 1_000_000.0f;
+			}
 		}
 	}
 }
