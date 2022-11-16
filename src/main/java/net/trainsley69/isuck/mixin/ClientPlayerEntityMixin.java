@@ -48,17 +48,19 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         MinecraftClient client = MinecraftClient.getInstance();
         // Allow creative flying by setting the ability to true on the client if we're not on the ground
         abilities.allowFlying = true;
-        abilities.setFlySpeed(0.1f);
+        abilities.setFlySpeed(0.075f);
         Vec3d velocity = this.getVelocity();
         double motionY = velocity.y;
         // Set the tick counter to 2 ticks if player is shifting, since this already resets on anticheat
         double antiKick = -0.04;
         if (client.options.sneakKey.isPressed()) {
-            motionY = motionY / 2;
+            if (abilities.flying) motionY = motionY / 2;
             tickCounter = 2;
         }
+
+        if (client.options.jumpKey.isPressed() && abilities.flying) motionY *= 1.3;
         // If we've hit the tick counter, reduce speed by the antiKick amount
-        int tickLimit = 80;
+        int tickLimit = 75;
         if (tickCounter == tickLimit) {
             motionY = antiKick;
             tickCounter = 0;
