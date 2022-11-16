@@ -7,9 +7,6 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.network.encryption.PlayerPublicKey;
-import net.minecraft.network.listener.ServerPacketListener;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -70,7 +67,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
 
         if (wasTriggered) {
             restoreCounter++;
-            int restoreLimit = 20;
+            int restoreLimit = 40;
             if (restoreCounter == restoreLimit) {
                 double restoreHeight = 0.04;
                 if (velocity.y == 0.0) motionY += restoreHeight;
