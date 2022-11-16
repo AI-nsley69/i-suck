@@ -3,7 +3,6 @@ package net.trainsley69.isuck;
 import com.google.gson.Gson;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,11 +80,6 @@ public class ISuck implements ModInitializer {
 		}
 	}
 
-	public static void reloadRenderer() {
-		MinecraftClient client = MinecraftClient.getInstance();
-		client.worldRenderer.reload();
-	}
-
 	public static class Config {
 		public boolean AutoFish = false;
 
@@ -96,22 +90,13 @@ public class ISuck implements ModInitializer {
 		public boolean AutoReplant = false;
 
 		public boolean XRay = false;
-        public boolean NoFog = false;
-    }
+	}
 
 	public static class Shared {
 		public static int recastDelay = 0;
 
 		public static int replantDelay = 0;
 
-		public static class NoFog {
-			public static float FOG_START = -8.0f;
-			public static float FOG_END = 1_000_000.0f;
-
-			public class SUBMERSED {
-				public static float FOG_START = -8.0f;
-				public static float FOG_END = 1_000_000.0f;
-			}
-		}
+		public static boolean bypassKick = false;
 	}
 }

@@ -7,6 +7,9 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.network.listener.ServerPacketListener;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -35,7 +38,10 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
     private void tick(CallbackInfo ci) {
         PlayerAbilities abilities = this.getAbilities();
         if (ISuck.config.Flying) flyingLogic(abilities);
-        else abilities.flying = false;
+        else {
+            abilities.allowFlying = false;
+            abilities.flying = false;
+        }
         if (ISuck.config.AutoFish) checkRecast();
 
         // if (ISuck.config.AutoReplant) checkReplant();
@@ -44,18 +50,18 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
     private void flyingLogic(PlayerAbilities abilities) {
         MinecraftClient client = MinecraftClient.getInstance();
         // Allow creative flying by setting the ability to true on the client if we're not on the ground
-        if (!this.isOnGround()) abilities.flying = true;
-        // Get the client and the players current velocity
+        abilities.allowFlying = true;
+        abilities.setFlySpeed(0.1f);
         Vec3d velocity = this.getVelocity();
         double motionY = velocity.y;
         // Set the tick counter to 2 ticks if player is shifting, since this already resets on anticheat
         double antiKick = -0.04;
         if (client.options.sneakKey.isPressed()) {
-            motionY += antiKick;
+            motionY = motionY / 2;
             tickCounter = 2;
         }
         // If we've hit the tick counter, reduce speed by the antiKick amount
-        int tickLimit = 40;
+        int tickLimit = 80;
         if (tickCounter == tickLimit) {
             motionY = antiKick;
             tickCounter = 0;
