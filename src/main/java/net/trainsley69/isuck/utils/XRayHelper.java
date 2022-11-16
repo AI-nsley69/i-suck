@@ -38,6 +38,6 @@ public class XRayHelper {
         MinecraftClient client = MinecraftClient.getInstance();
         // Change chunk culling, ambient occlusion and then reload the world
         client.chunkCullingEnabled = !ISuck.config.XRay;
-        client.worldRenderer.reload();
+        ISuck.reloadRenderer();
     }
 }

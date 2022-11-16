@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -47,7 +47,7 @@ public class BlockMixin {
         }
     }
 
-    @Inject(at=@At("RETURN"), method="shouldDrawSide()Z", cancellable = true)
+    @Inject(at=@At("RETURN"), method="shouldDrawSide", cancellable = true)
     private static void shouldDrawSide(BlockState state, BlockView world, BlockPos pos, Direction side, BlockPos otherPos, CallbackInfoReturnable<Boolean> cr) {
         if (ISuck.config.XRay) cr.setReturnValue(isAllowed(state.getBlock()));
     }

@@ -1,13 +1,10 @@
 package net.trainsley69.isuck;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-
 import net.trainsley69.isuck.utils.XRayHelper;
 
 public class ISuckScreen extends Screen {
@@ -67,12 +64,23 @@ public class ISuckScreen extends Screen {
                     ISuck.config.AutoReplant = !ISuck.config.AutoReplant;
                     btn.setMessage(AutoReplant());
                 }));
+        this.addDrawableChild(new ButtonWidget(width2, (height + 3 * 24) - y, buttonW, buttonH, NoFog(),
+                btn -> {
+                    ISuck.config.NoFog = !ISuck.config.NoFog;
+                    btn.setMessage(NoFog());
+                    ISuck.reloadRenderer();
+                }));
 
         // Back button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 4 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
+    }
+
+    Text NoFog() {
+        String string = "No fog: ";
+        return Text.literal(string + (ISuck.config.NoFog ? "Enabled" : "Disabled"));
     }
 
     Text AutoFishing() {
