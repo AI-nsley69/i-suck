@@ -15,7 +15,7 @@ X-ray
 NoFog
 NoAbuse
 ```
-[Features explanation](https://github.com/AI-nsley69/i-suck/blob/1.19/README.md)
+[Features explanation](https://github.com/AI-nsley69/i-suck/blob/1.19/FEATURES.md)
 
 # Roadmap
 ```
