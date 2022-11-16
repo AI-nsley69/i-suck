@@ -14,7 +14,8 @@
     "MinecraftClientMixin",
     "BlockModelRendererMixin",
     "FluidRendererMixin",
-    "BackgroundRendererMixin"
+    "BackgroundRendererMixin",
+    "ClientPlayerInteractionManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

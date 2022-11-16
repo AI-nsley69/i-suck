@@ -24,87 +24,65 @@ public class ISuckScreen extends Screen {
 
     protected void init() {
         int y = 5 / 2;
-        int buttonW = 150;
+        int buttonW = this.width / 5;
         int buttonH = 20;
         int buttonOffset = 4;
         int height = this.height / 4;
         int width1 = this.width / 3 - buttonOffset - (buttonW / 2);
-        int width2 = this.width - this.width / 3 + buttonOffset - (buttonW / 2);
+        int width2 = this.width - this.width / 3 - buttonOffset - (buttonW / 2);
 
         // LEFT ROW
         // Autofishing button
-        this.addDrawableChild(new ButtonWidget(width1, (height + 1 * 24) - y, buttonW, buttonH, AutoFishing(),
+        this.addDrawableChild(new ButtonWidget(width1, (height + 1 * 24) - y, buttonW, buttonH, getText("AutoFishing", ISuck.config.AutoFish),
                 btn -> {
                     ISuck.config.AutoFish = !ISuck.config.AutoFish;
-                    btn.setMessage(AutoFishing());
+                    btn.setMessage(getText("AutoFishing", ISuck.config.AutoFish));
                 }));
         // Flying button
-        this.addDrawableChild(new ButtonWidget(width1, (height + 2 * 24) - y, buttonW, buttonH, Flying(),
+        this.addDrawableChild(new ButtonWidget(width1, (height + 2 * 24) - y, buttonW, buttonH, getText("Flyhack", ISuck.config.Flying),
                 btn -> {
                     ISuck.config.Flying = !ISuck.config.Flying;
-                    btn.setMessage(Flying());
+                    btn.setMessage(getText("Flyhack", ISuck.config.Flying));
                 }));
         // XRay
-        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, XRay(),
+        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, getText("Flyhack", ISuck.config.Flying),
                 btn -> {
                     ISuck.config.XRay = !ISuck.config.XRay;
-                    btn.setMessage(XRay());
+                    btn.setMessage(getText("XRay", ISuck.config.XRay));
                     XRayHelper.changeSetting();
                 }));
-
+        this.addDrawableChild(new ButtonWidget(width1, (height + 4 * 24) - y, buttonW, buttonH, getText("NoAbuse", ISuck.config.NoAbuse),
+                btn -> {
+                    ISuck.config.NoAbuse = !ISuck.config.NoAbuse;
+                    btn.setMessage(getText("NoAbuse", ISuck.config.NoAbuse));
+                }));
         // RIGHT ROW
         // Fullbright
-        this.addDrawableChild(new ButtonWidget(width2, (height + 1 * 24) - y, buttonW, buttonH, Fullbright(),
+        this.addDrawableChild(new ButtonWidget(width2, (height + 1 * 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
                 btn -> {
                     ISuck.config.Fullbright = !ISuck.config.Fullbright;
-                    btn.setMessage(Fullbright());
+                    btn.setMessage(getText("Fullbright", ISuck.config.Fullbright));
                 }));
-        this.addDrawableChild(new ButtonWidget(width2, (height + 2 * 24) - y, buttonW, buttonH, AutoReplant(),
+        this.addDrawableChild(new ButtonWidget(width2, (height + 2 * 24) - y, buttonW, buttonH, getText("AutoReplant", ISuck.config.AutoReplant),
                 btn -> {
                     ISuck.config.AutoReplant = !ISuck.config.AutoReplant;
-                    btn.setMessage(AutoReplant());
+                    btn.setMessage(getText("AutoReplant", ISuck.config.AutoReplant));
                 }));
-        this.addDrawableChild(new ButtonWidget(width2, (height + 3 * 24) - y, buttonW, buttonH, NoFog(),
+        this.addDrawableChild(new ButtonWidget(width2, (height + 3 * 24) - y, buttonW, buttonH, getText("NoFog", ISuck.config.NoFog),
                 btn -> {
                     ISuck.config.NoFog = !ISuck.config.NoFog;
-                    btn.setMessage(NoFog());
+                    btn.setMessage(getText("NoFog", ISuck.config.NoFog));
                     ISuck.reloadRenderer();
                 }));
 
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 4 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 5 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
     }
 
-    Text NoFog() {
-        String string = "No fog: ";
-        return Text.literal(string + (ISuck.config.NoFog ? "Enabled" : "Disabled"));
-    }
-
-    Text AutoFishing() {
-        String string = "Auto Fishing: ";
-        return Text.literal(string + (ISuck.config.AutoFish ? "Enabled" : "Disabled"));
-    }
-
-    Text Flying() {
-        String string = "Flying: ";
-        return Text.literal(string + (ISuck.config.Flying ? "Enabled" : "Disabled"));
-    }
-
-    Text Fullbright() {
-        String string = "Fullbright: ";
-        return Text.literal(string + (ISuck.config.Fullbright ? "Enabled" : "Disabled"));
-    }
-
-    Text AutoReplant() {
-        String string = "AutoReplant: ";
-        return Text.literal(string + (ISuck.config.AutoReplant ? "Enabled" : "Disabled"));
-    }
-
-    Text XRay() {
-        String string = "XRay: ";
-        return Text.literal(string + (ISuck.config.XRay ? "Enabled" : "Disabled"));
+    private Text getText(String text, Boolean toggled) {
+        return Text.literal(text + ": " + (toggled ? "Enabled" : "Disabled"));
     }
 }
