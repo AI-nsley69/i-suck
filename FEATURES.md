@@ -34,3 +34,6 @@ Does not affect blindness and darkness effects
 Prevents you from attacking villagers and pets
 
 Currently only blacklists tamed pets and villagers, does not support modification without editing the source code.
+
+## FastBreak
+Enables you to mind faster by sending a STOP_DESTROY_BLOCK action packet right after you begin to mine a block, also removes any block breaking cooldown (block hit delay)
