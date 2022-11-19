@@ -3,10 +3,13 @@ package net.trainsley69.isuck.mixin;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -41,7 +44,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         }
         if (ISuck.config.AutoFish) checkRecast();
 
-        // if (ISuck.config.AutoReplant) checkReplant();
+        if (ISuck.config.AutoReplant) checkReplant();
     }
 
     private void flyingLogic(PlayerAbilities abilities) {
@@ -79,7 +82,8 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         }
         // Set the new y speed and update the tickCounter
         this.setVelocity(velocity.x, motionY, velocity.z);
-        tickCounter++;
+         if (abilities.flying) tickCounter++;
+         else tickCounter = 2;
     }
 
     private void checkReplant() {
@@ -96,5 +100,27 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
             MinecraftClient client = MinecraftClient.getInstance();
             client.interactionManager.interactItem(this, Hand.MAIN_HAND);
         }
+    }
+
+    @Inject(at = @At("HEAD"), method = "requestRespawn")
+    private void requestRespawn(CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        Vec3d pos = client.player.getPos();
+
+        var deathMessage = Text.literal(
+                "You died at "
+
+        );
+        deathMessage.setStyle(deathMessage.getStyle().withFormatting(Formatting.BOLD, Formatting.GRAY));
+
+        var coordsMessage = Text.literal(
+                Math.round(pos.x)
+                + ", " + Math.round(pos.y)
+                + ", " + Math.round(pos.z)
+        );
+        coordsMessage.setStyle(coordsMessage.getStyle().withFormatting(Formatting.GOLD, Formatting.UNDERLINE));
+
+        deathMessage.append(coordsMessage);
+        client.player.sendMessage(deathMessage, false);
     }
 }
