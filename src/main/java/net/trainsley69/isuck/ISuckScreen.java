@@ -24,7 +24,7 @@ public class ISuckScreen extends Screen {
 
     protected void init() {
         int y = 5 / 2;
-        int buttonW = this.width / 5;
+        int buttonW = this.width / 4;
         int buttonH = 20;
         int buttonOffset = 4;
         int height = this.height / 4;
@@ -45,7 +45,7 @@ public class ISuckScreen extends Screen {
                     btn.setMessage(getText("Flyhack", ISuck.config.Flying));
                 }));
         // XRay
-        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, getText("Flyhack", ISuck.config.Flying),
+        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, getText("XRay", ISuck.config.XRay),
                 btn -> {
                     ISuck.config.XRay = !ISuck.config.XRay;
                     btn.setMessage(getText("XRay", ISuck.config.XRay));
@@ -73,6 +73,12 @@ public class ISuckScreen extends Screen {
                     ISuck.config.NoFog = !ISuck.config.NoFog;
                     btn.setMessage(getText("NoFog", ISuck.config.NoFog));
                     ISuck.reloadRenderer();
+                }));
+
+        this.addDrawableChild(new ButtonWidget(width2, (height + 4 * 24) - y, buttonW, buttonH, getText("FastBreak", ISuck.config.FastBreak),
+                btn -> {
+                    ISuck.config.FastBreak = !ISuck.config.FastBreak;
+                    btn.setMessage(getText("FastBreak", ISuck.config.FastBreak));
                 }));
 
         // Back button

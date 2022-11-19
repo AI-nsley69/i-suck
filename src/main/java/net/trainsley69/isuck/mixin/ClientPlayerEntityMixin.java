@@ -60,7 +60,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
 
         if (client.options.jumpKey.isPressed() && abilities.flying) motionY *= 1.3;
         // If we've hit the tick counter, reduce speed by the antiKick amount
-        int tickLimit = 75;
+        int tickLimit = 40;
         if (tickCounter == tickLimit) {
             motionY = antiKick;
             tickCounter = 0;
@@ -69,7 +69,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
 
         if (wasTriggered) {
             restoreCounter++;
-            int restoreLimit = 40;
+            int restoreLimit = 20;
             if (restoreCounter == restoreLimit) {
                 double restoreHeight = 0.04;
                 if (velocity.y == 0.0) motionY += restoreHeight;
