@@ -34,4 +34,14 @@ public class ClientPlayerInteractionManagerMixin {
     private void tick(CallbackInfo ci) {
         if (ISuck.config.FastBreak) this.blockBreakingCooldown = 0;
     }
+
+    @Shadow
+    private float currentBreakingProgress;
+    @Inject(at = @At("HEAD"), method = "updateBlockBreakingProgress")
+    private void updateBlockBreakingProgress(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cr) {
+        if (!ISuck.config.FastBreak) return;
+        if (this.currentBreakingProgress >= 1) return;
+        Action action = Action.STOP_DESTROY_BLOCK;
+        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(action, pos, direction));
+    }
 }
