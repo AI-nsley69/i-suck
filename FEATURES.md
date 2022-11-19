@@ -37,3 +37,8 @@ Currently only blacklists tamed pets and villagers, does not support modificatio
 
 ## FastBreak
 Enables you to mind faster by sending a STOP_DESTROY_BLOCK action packet right after you begin to mine a block, also removes any block breaking cooldown (block hit delay)
+
+## Death Coordinates
+A small feature to print your coordinates whenever you die.
+
+Non-togglable.
