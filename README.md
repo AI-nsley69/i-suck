@@ -14,6 +14,8 @@ Auto-replant crops
 X-ray
 NoFog
 NoAbuse
+FastBreak
+Death Coordinates
 ```
 [Features explanation](https://github.com/AI-nsley69/i-suck/blob/1.19/FEATURES.md)
 
