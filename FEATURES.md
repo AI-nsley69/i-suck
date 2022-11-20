@@ -42,3 +42,6 @@ Enables you to mind faster by sending a STOP_DESTROY_BLOCK action packet right a
 A small feature to print your coordinates whenever you die.
 
 Non-togglable.
+
+## AutoTool
+Swaps to the most efficient tool you have in the hotbar when hitting a block.

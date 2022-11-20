@@ -24,7 +24,7 @@ public class ISuckScreen extends Screen {
 
     protected void init() {
         int y = 5 / 2;
-        int buttonW = this.width / 4;
+        int buttonW = Math.min(this.width / 4, 200);
         int buttonH = 20;
         int buttonOffset = 4;
         int height = this.height / 4;
@@ -56,6 +56,11 @@ public class ISuckScreen extends Screen {
                     ISuck.config.NoAbuse = !ISuck.config.NoAbuse;
                     btn.setMessage(getText("NoAbuse", ISuck.config.NoAbuse));
                 }));
+        this.addDrawableChild(new ButtonWidget(width1, (height + 5 * 24) - y, buttonW, buttonH, getText("AutoTool", ISuck.config.AutoTool),
+                btn -> {
+                    ISuck.config.AutoTool = !ISuck.config.AutoTool;
+                    btn.setMessage(getText("AutoTool", ISuck.config.AutoTool));
+                }));
         // RIGHT ROW
         // Fullbright
         this.addDrawableChild(new ButtonWidget(width2, (height + 1 * 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
@@ -80,9 +85,9 @@ public class ISuckScreen extends Screen {
                     ISuck.config.FastBreak = !ISuck.config.FastBreak;
                     btn.setMessage(getText("FastBreak", ISuck.config.FastBreak));
                 }));
-
+        int backButtonW = Math.min((int)(buttonW * 1.75), 300);
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - ((int) (buttonW * 1.75) / 2), (height + 5 * 24) - y, (int) (buttonW * 1.75), 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 6 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
                 btn -> {
                     this.client.setScreen(this.parent);
                 }));
