@@ -104,6 +104,8 @@ public class ISuck implements ModInitializer {
 		public boolean FastBreak = false;
 
 		public boolean AutoTool = false;
+
+        public boolean FakeSneak = false;
     }
 
 	public static class Shared {
@@ -120,5 +122,7 @@ public class ISuck implements ModInitializer {
 				public static float FOG_END = 1_000_000.0f;
 			}
 		}
+
+		public static boolean justJoined = false;
 	}
 }

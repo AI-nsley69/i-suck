@@ -3,7 +3,6 @@ package net.trainsley69.isuck.mixin;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -48,6 +47,9 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
     }
 
     private void flyingLogic(PlayerAbilities abilities) {
+        // Check if we need to enable flying on join
+        joinChecks(abilities);
+        // Do the rest of the flying check
         MinecraftClient client = MinecraftClient.getInstance();
         // Allow creative flying by setting the ability to true on the client if we're not on the ground
         abilities.allowFlying = true;
@@ -84,6 +86,13 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         this.setVelocity(velocity.x, motionY, velocity.z);
          if (abilities.flying) tickCounter++;
          else tickCounter = 2;
+    }
+
+    public void joinChecks(PlayerAbilities abilities) {
+        if (ISuck.Shared.justJoined && !this.isOnGround()) {
+            abilities.flying = true;
+            ISuck.Shared.justJoined = false;
+        }
     }
 
     private void checkReplant() {
