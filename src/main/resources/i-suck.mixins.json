@@ -4,18 +4,19 @@
   "package": "net.trainsley69.isuck.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EntityMixin"
   ],
   "client": [
-    "FishingBobberEntityMixin",
-    "GameMenuScreenMixin",
-    "ClientPlayerEntityMixin",
-    "GammaMixin",
-    "BlockMixin",
-    "MinecraftClientMixin",
-    "BlockModelRendererMixin",
-    "FluidRendererMixin",
     "BackgroundRendererMixin",
-    "ClientPlayerInteractionManagerMixin"
+    "BlockMixin",
+    "BlockModelRendererMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "FishingBobberEntityMixin",
+    "FluidRendererMixin",
+    "GameMenuScreenMixin",
+    "GammaMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
