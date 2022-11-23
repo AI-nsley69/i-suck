@@ -104,9 +104,7 @@ public class ISuck implements ModInitializer {
 		public boolean FastBreak = false;
 
 		public boolean AutoTool = false;
-
-        public boolean FakeSneak = false;
-    }
+	}
 
 	public static class Shared {
 		public static int recastDelay = 0;

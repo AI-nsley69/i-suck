@@ -85,12 +85,6 @@ public class ISuckScreen extends Screen {
                     ISuck.config.FastBreak = !ISuck.config.FastBreak;
                     btn.setMessage(getText("FastBreak", ISuck.config.FastBreak));
                 }));
-
-        this.addDrawableChild(new ButtonWidget(width2, (height + 5 * 24) - y, buttonW, buttonH, getText("FakeSneak", ISuck.config.FakeSneak),
-                btn -> {
-                    ISuck.config.FakeSneak = !ISuck.config.FakeSneak;
-                    btn.setMessage(getText("FakeSneak", ISuck.config.FakeSneak));
-                }));
         int backButtonW = Math.min((int)(buttonW * 1.75), 300);
         // Back button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 6 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
