@@ -33,5 +33,4 @@ public class GlowHelper {
             default -> { return -1; }
         }
     }
-
 }

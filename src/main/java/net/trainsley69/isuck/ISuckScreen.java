@@ -6,21 +6,27 @@ import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
-import net.trainsley69.isuck.utils.ModDetection;
-import net.trainsley69.isuck.utils.XRayHelper;
-
-import java.text.DecimalFormat;
+import net.trainsley69.isuck.options.*;
 
 public class ISuckScreen extends Screen {
     private final Screen parent;
     private final GameOptions settings;
 
-    private final DecimalFormat nearestDecimal = new DecimalFormat("#.#");
+    Option[] row1 = {
+            new AutoFishOption("AutoFish", Option.Type.BUTTON),
+            new FlyHackOption("FlyHack", Option.Type.BUTTON),
+            new XRayOption("XRay", Option.Type.BUTTON),
+            new NoAbuseOption("NoAbuse", Option.Type.BUTTON),
+            new JumpHackOption("JumpHack", Option.Type.SLIDER)
+    };
 
-    public static class Buttons {
-        static SliderWidget JumpHack;
-    }
+    Option[] row2 = {
+            new FullbrightOption("Fullbright", Option.Type.BUTTON),
+            new AutoReplantOption("AutoReplant", Option.Type.BUTTON),
+            new NoFogOption("NoFog", Option.Type.BUTTON),
+            new FastBreakOption("FastBreak", Option.Type.BUTTON),
+            new EntityGlowOption("EntityGlow", Option.Type.BUTTON)
+    };
 
     public ISuckScreen(Screen parent, GameOptions settings) {
         super(Text.literal("I Suck"));
@@ -34,89 +40,93 @@ public class ISuckScreen extends Screen {
     }
 
     protected void init() {
-        int y = 7 / 2;
+        int length = Math.max(row1.length, row2.length);
+        int y = length / 2;
         int buttonW = Math.min(this.width / 4, 200);
         int buttonH = 20;
         int buttonOffset = 4;
-        int height = this.height / 4;
+        int height = this.height / 5;
         int width1 = this.width / 3 - buttonOffset - (buttonW / 2);
         int width2 = this.width - this.width / 3 - buttonOffset - (buttonW / 2);
 
         // LEFT ROW
-        // Autofishing button
-        this.addDrawableChild(new ButtonWidget(width1, (height + 24) - y, buttonW, buttonH, getText("AutoFishing", ISuck.config.AutoFish),
-                btn -> {
-                    ISuck.config.AutoFish = !ISuck.config.AutoFish;
-                    btn.setMessage(getText("AutoFishing", ISuck.config.AutoFish));
-                }));
-        // Flying button
-        this.addDrawableChild(new ButtonWidget(width1, (height + 2 * 24) - y, buttonW, buttonH, getText("Flyhack", ISuck.config.Flying),
-                btn -> {
-                    ISuck.config.Flying = !ISuck.config.Flying;
-                    btn.setMessage(getText("Flyhack", ISuck.config.Flying));
-                }));
-        // XRay
-        this.addDrawableChild(new ButtonWidget(width1, (height + 3 * 24) - y, buttonW, buttonH, getText("XRay", ISuck.config.XRay),
-                btn -> {
-                    ISuck.config.XRay = !ISuck.config.XRay;
-                    btn.setMessage(getText("XRay", ISuck.config.XRay));
-                    XRayHelper.changeSetting();
-                }));
-        this.addDrawableChild(new ButtonWidget(width1, (height + 4 * 24) - y, buttonW, buttonH, getText("NoAbuse", ISuck.config.NoAbuse),
-                btn -> {
-                    ISuck.config.NoAbuse = !ISuck.config.NoAbuse;
-                    btn.setMessage(getText("NoAbuse", ISuck.config.NoAbuse));
-                }));
-        this.addDrawableChild(new ButtonWidget(width1, (height + 5 * 24) - y, buttonW, buttonH, getText("AutoTool", ISuck.config.AutoTool),
-                btn -> {
-                    ISuck.config.AutoTool = !ISuck.config.AutoTool;
-                    btn.setMessage(getText("AutoTool", ISuck.config.AutoTool));
-                }));
-        Buttons.JumpHack = new SliderWidget(width1, (height + 6 * 24) - y, buttonW, buttonH, Text.literal("Jumphack: ~" + (ISuck.config.JumpHack > 0 ? nearestDecimal.format(ISuck.config.JumpHack / 2 * 10 + 1.5) : 0) + " blocks"), 0) {
-            @Override
-            protected void updateMessage() {
-                Text text = Text.literal("Jumphack: ~" + (this.value == 0 ? nearestDecimal.format(this.value / 4 * 10 + 1.5) : 0) + " blocks");
-                this.setMessage(text);
-            }
+        for (int i = 0; i < row1.length; i++) {
+            Option option = row1[i];
+            int nextHeight = height + (i+1) * 24 - y;
+            switch (option.getType()) {
+                case BUTTON -> {
+                    this.addDrawableChild(new ButtonWidget(
+                            width1,
+                            nextHeight,
+                            buttonW,
+                            buttonH,
+                            option.getText(),
+                            option::onToggle
+                    ));
+                }
+                case SLIDER -> {
+                    this.addDrawableChild(new SliderWidget(
+                            width1,
+                            nextHeight,
+                            buttonW,
+                            buttonH,
+                            option.getText(),
+                            option.getSliderValue()
+                    ) {
+                        @Override
+                        protected void updateMessage() {
+                            option.onToggle(this);
+                        }
 
-            @Override
-            protected void applyValue() {
-                ISuck.config.JumpHack = MathHelper.clamp((float)this.value / 2 , 0.0f, 0.5f);
+                        @Override
+                        protected void applyValue() {
+                            option.applyValue(this.value);
+                        }
+                    });
+                }
             }
-        };
-        this.addDrawableChild(Buttons.JumpHack);
+        }
         // RIGHT ROW
-        // Fullbright
-        this.addDrawableChild(new ButtonWidget(width2, (height + 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
-                btn -> {
-                    ISuck.config.Fullbright = !ISuck.config.Fullbright;
-                    btn.setMessage(getText("Fullbright", ISuck.config.Fullbright));
-                }));
-        this.addDrawableChild(new ButtonWidget(width2, (height + 2 * 24) - y, buttonW, buttonH, getText("AutoReplant", ISuck.config.AutoReplant),
-                btn -> {
-                    ISuck.config.AutoReplant = !ISuck.config.AutoReplant;
-                    btn.setMessage(getText("AutoReplant", ISuck.config.AutoReplant));
-                }));
-        this.addDrawableChild(new ButtonWidget(width2, (height + 3 * 24) - y, buttonW, buttonH, getText("NoFog", ISuck.config.NoFog),
-                btn -> {
-                    ISuck.config.NoFog = !ModDetection.isSodiumPresent() && !ISuck.config.NoFog;
-                    btn.setMessage(getText("NoFog", ISuck.config.NoFog));
-                    ISuck.reloadRenderer();
-                }));
+        for (int i = 0; i < row2.length; i++) {
+            Option option = row2[i];
+            int nextHeight = height + (i+1) * 24 - y;
+            switch (option.getType()) {
+                case BUTTON -> {
+                    this.addDrawableChild(new ButtonWidget(
+                            width2,
+                            nextHeight,
+                            buttonW,
+                            buttonH,
+                            option.getText(),
+                            option::onToggle
+                    ));
+                }
+                case SLIDER -> {
+                    this.addDrawableChild(new SliderWidget(
+                            width2,
+                            nextHeight,
+                            buttonW,
+                            buttonH,
+                            option.getText(),
+                            option.getSliderValue()
+                    ) {
+                        @Override
+                        protected void updateMessage() {
+                            option.onToggle(this);
+                        }
 
-        this.addDrawableChild(new ButtonWidget(width2, (height + 4 * 24) - y, buttonW, buttonH, getText("FastBreak", ISuck.config.FastBreak),
-                btn -> {
-                    ISuck.config.FastBreak = !ISuck.config.FastBreak;
-                    btn.setMessage(getText("FastBreak", ISuck.config.FastBreak));
-                }));
-        this.addDrawableChild(new ButtonWidget(width2, (height + 5 * 24) - y, buttonW, buttonH, getText("EntityGlow", ISuck.config.EntityGlow),
-                btn -> {
-                    ISuck.config.EntityGlow = !ISuck.config.EntityGlow;
-                    btn.setMessage(getText("EntityGlow", ISuck.config.EntityGlow));
-                }));
+                        @Override
+                        protected void applyValue() {
+                            option.applyValue(this.value);
+                        }
+                    });
+                }
+            }
+        }
+
         int backButtonW = Math.min((int)(buttonW * 1.75), 300);
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 7 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + (length + 1) * 24) - y, backButtonW, 20, ScreenTexts.BACK,
                 btn -> {
                     assert this.client != null;
                     this.client.setScreen(this.parent);
