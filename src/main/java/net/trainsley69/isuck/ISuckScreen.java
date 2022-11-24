@@ -2,14 +2,25 @@ package net.trainsley69.isuck;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.MathHelper;
+import net.trainsley69.isuck.utils.ModDetection;
 import net.trainsley69.isuck.utils.XRayHelper;
+
+import java.text.DecimalFormat;
 
 public class ISuckScreen extends Screen {
     private final Screen parent;
     private final GameOptions settings;
+
+    private final DecimalFormat nearestDecimal = new DecimalFormat("#.#");
+
+    public static class Buttons {
+        static SliderWidget JumpHack;
+    }
 
     public ISuckScreen(Screen parent, GameOptions settings) {
         super(Text.literal("I Suck"));
@@ -23,7 +34,7 @@ public class ISuckScreen extends Screen {
     }
 
     protected void init() {
-        int y = 5 / 2;
+        int y = 7 / 2;
         int buttonW = Math.min(this.width / 4, 200);
         int buttonH = 20;
         int buttonOffset = 4;
@@ -61,6 +72,19 @@ public class ISuckScreen extends Screen {
                     ISuck.config.AutoTool = !ISuck.config.AutoTool;
                     btn.setMessage(getText("AutoTool", ISuck.config.AutoTool));
                 }));
+        Buttons.JumpHack = new SliderWidget(width1, (height + 6 * 24) - y, buttonW, buttonH, Text.literal("Jumphack: ~" + (ISuck.config.JumpHack > 0 ? nearestDecimal.format(ISuck.config.JumpHack / 2 * 10 + 1.5) : 0) + " blocks"), 0) {
+            @Override
+            protected void updateMessage() {
+                Text text = Text.literal("Jumphack: ~" + (this.value == 0 ? nearestDecimal.format(this.value / 4 * 10 + 1.5) : 0) + " blocks");
+                this.setMessage(text);
+            }
+
+            @Override
+            protected void applyValue() {
+                ISuck.config.JumpHack = MathHelper.clamp((float)this.value / 2 , 0.0f, 0.5f);
+            }
+        };
+        this.addDrawableChild(Buttons.JumpHack);
         // RIGHT ROW
         // Fullbright
         this.addDrawableChild(new ButtonWidget(width2, (height + 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
@@ -75,7 +99,7 @@ public class ISuckScreen extends Screen {
                 }));
         this.addDrawableChild(new ButtonWidget(width2, (height + 3 * 24) - y, buttonW, buttonH, getText("NoFog", ISuck.config.NoFog),
                 btn -> {
-                    ISuck.config.NoFog = !ISuck.config.NoFog;
+                    ISuck.config.NoFog = !ModDetection.isSodiumPresent() && !ISuck.config.NoFog;
                     btn.setMessage(getText("NoFog", ISuck.config.NoFog));
                     ISuck.reloadRenderer();
                 }));
@@ -92,7 +116,7 @@ public class ISuckScreen extends Screen {
                 }));
         int backButtonW = Math.min((int)(buttonW * 1.75), 300);
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 6 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 7 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
                 btn -> {
                     assert this.client != null;
                     this.client.setScreen(this.parent);

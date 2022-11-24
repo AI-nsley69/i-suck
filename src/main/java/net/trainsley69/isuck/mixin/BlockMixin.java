@@ -31,7 +31,10 @@ public class BlockMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         World level = client.world;
         // Return if the option isn't toggled or if it's not the client
-        if (!ISuck.config.AutoReplant || !(level != null && level.isClient)) return;
+        if (ISuck.config.AutoReplant || (level != null && level.isClient)) replantLogic(client, state, pos);
+    }
+
+    private void replantLogic(MinecraftClient client, BlockState state, BlockPos pos) {
         // Get the player entity and block
         PlayerEntity player = client.player;
         Block block = state.getBlock();
@@ -41,7 +44,7 @@ public class BlockMixin {
             Item item = player.getMainHandStack().getItem();
             if (!isCrop(item)) return;
             // Make a new BlockHitResult with the block below
-            BlockHitResult oldHit = (BlockHitResult)client.crosshairTarget;
+            BlockHitResult oldHit = (BlockHitResult) client.crosshairTarget;
             assert oldHit != null;
             BlockHitResult hitMePapi = new BlockHitResult(oldHit.getPos(), Direction.UP, pos.offset(Direction.Axis.Y, -1), oldHit.isInsideBlock());
             // interact with the block using the new blockhitresult

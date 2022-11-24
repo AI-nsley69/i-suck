@@ -13,9 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MinecraftClientMixin {
     @Inject(at=@At("HEAD"), method = "isAmbientOcclusionEnabled()Z", cancellable = true)
     private static void isAmbientOcclusionEnabled(CallbackInfoReturnable<Boolean> cr) {
-        if (!ISuck.config.XRay) return;
-        cr.setReturnValue(false);
-        cr.cancel();
+        if (ISuck.config.XRay) cr.setReturnValue(false);
     }
 
     @Inject(at = @At("HEAD"), method = "joinWorld")

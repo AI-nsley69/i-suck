@@ -17,6 +17,8 @@ NoAbuse
 FastBreak
 Death Coordinates
 AutoTool
+EntityGlow
+JumpHack
 ```
 [Features explanation](https://github.com/AI-nsley69/i-suck/blob/1.19/FEATURES.md)
 

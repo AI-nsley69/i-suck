@@ -20,14 +20,19 @@ public class BackgroundRendererMixin {
     @Inject(at = @At("HEAD"), method = "applyFog", cancellable = true)
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
         // Return if nofog is not enabled
-        if (!ISuck.config.NoFog) return;
-        // Get entity and submersion type
-        Entity entity = camera.getFocusedEntity();
-        CameraSubmersionType cameraSubmersionType = camera.getSubmersionType();
-        // If the player has darkness or blindness, return early
-        if (((LivingEntity)entity).hasStatusEffect(StatusEffects.BLINDNESS) || ((LivingEntity)entity).hasStatusEffect(StatusEffects.DARKNESS)) return;
-        // Cancel the function and set our own values for fogstart and fogend
-        ci.cancel();
+        if (ISuck.config.NoFog) {
+            // Get entity and submersion type
+            Entity entity = camera.getFocusedEntity();
+            CameraSubmersionType cameraSubmersionType = camera.getSubmersionType();
+            // If the player has darkness or blindness, return early
+            if (((LivingEntity)entity).hasStatusEffect(StatusEffects.BLINDNESS) || ((LivingEntity)entity).hasStatusEffect(StatusEffects.DARKNESS)) return;
+            // Cancel the function and set our own values for fogstart and fogend
+            ci.cancel();
+            noFogLogic(cameraSubmersionType, viewDistance);
+        }
+    }
+
+    private static void noFogLogic(CameraSubmersionType cameraSubmersionType, float viewDistance) {
         if (cameraSubmersionType == CameraSubmersionType.NONE) {
             RenderSystem.setShaderFogStart(ISuck.Shared.NoFog.FOG_START);
             RenderSystem.setShaderFogStart(ISuck.Shared.NoFog.FOG_END);

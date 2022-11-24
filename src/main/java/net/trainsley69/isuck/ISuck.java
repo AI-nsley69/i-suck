@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.trainsley69.isuck.utils.ModDetection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,7 @@ public class ISuck implements ModInitializer {
 
 	private void verifyConfig(Config config) {
 		if (config.XRay) config.XRay = false;
+		if (config.NoFog && ModDetection.isSodiumPresent()) config.NoFog = false;
 	}
 
 	private void loadConfig() throws IOException {
@@ -106,7 +108,9 @@ public class ISuck implements ModInitializer {
 		public boolean AutoTool = false;
 
 		public boolean EntityGlow = false;
-	}
+
+        public float JumpHack = 0;
+    }
 
 	public static class Shared {
 		public static int recastDelay = 0;

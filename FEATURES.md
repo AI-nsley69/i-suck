@@ -30,6 +30,8 @@ Completely removes normal fog
 
 Does not affect blindness and darkness effects
 
+No Sodium support yet
+
 ## NoAbuse
 Prevents you from attacking villagers and pets
 
@@ -45,3 +47,14 @@ Non-togglable.
 
 ## AutoTool
 Swaps to the most efficient tool you have in the hotbar when hitting a block.
+
+## EntityGlow
+Makes specific entities glow
+```
+Player - Gold
+Hostile - Dark Red
+Passive - Green
+```
+
+## JumpHack
+Change how high you can jump, higher number becomes less accurate with the value

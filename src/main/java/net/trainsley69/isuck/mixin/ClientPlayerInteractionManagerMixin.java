@@ -29,9 +29,10 @@ import java.util.Objects;
 public class ClientPlayerInteractionManagerMixin {
     @Inject(at = @At("HEAD"), method = "attackEntity", cancellable = true)
     private void attackEntity(PlayerEntity player, Entity target, CallbackInfo ci) {
-        if (!ISuck.config.NoAbuse) return;
-        if (target instanceof TameableEntity && ((TameableEntity) target).isTamed()) ci.cancel();
-        if (target instanceof VillagerEntity) ci.cancel();
+        if (ISuck.config.NoAbuse) {
+            if (target instanceof TameableEntity && ((TameableEntity) target).isTamed()) ci.cancel();
+            if (target instanceof VillagerEntity) ci.cancel();
+        }
     }
 
     @Shadow
@@ -46,15 +47,18 @@ public class ClientPlayerInteractionManagerMixin {
     private float currentBreakingProgress;
     @Inject(at = @At("HEAD"), method = "updateBlockBreakingProgress")
     private void updateBlockBreakingProgress(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cr) {
-        if (!ISuck.config.FastBreak) return;
-        if (this.currentBreakingProgress >= 1) return;
-        Action action = Action.STOP_DESTROY_BLOCK;
-        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(action, pos, direction));
+        if (ISuck.config.FastBreak && this.currentBreakingProgress >= 1) {
+            Action action = Action.STOP_DESTROY_BLOCK;
+            Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(action, pos, direction));
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "attackBlock")
     private void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cr) {
-        if (!ISuck.config.AutoTool) return;
+        if (ISuck.config.AutoTool) autoToolLogic(pos);
+    }
+
+    private void autoToolLogic(BlockPos pos) {
         // Get the client, inventory and blockstate
         MinecraftClient client = MinecraftClient.getInstance();
         BlockState state = null;
