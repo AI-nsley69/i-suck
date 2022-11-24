@@ -19,7 +19,10 @@ public abstract class GameMenuScreenMixin extends Screen {
     @Inject(at = @At("HEAD"), method="initWidgets")
     private void initWidgets(CallbackInfo ci) {
         this.addDrawableChild(new ButtonWidget(10, 10, 50, 20, Text.literal("I Suck :)"),
-                btn -> this.client.setScreen(new ISuckScreen(this, this.client.options))
+                btn -> {
+                    assert this.client != null;
+                    this.client.setScreen(new ISuckScreen(this, this.client.options));
+                }
                 ));
     }
 }

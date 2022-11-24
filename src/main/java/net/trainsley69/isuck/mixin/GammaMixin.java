@@ -4,6 +4,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 import net.trainsley69.isuck.ISuck;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,16 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameOptions.class)
 public class GammaMixin {
-    @Shadow
+    @Shadow @Final
     private SimpleOption<Double> gamma;
     @Inject(method="getGamma", at = @At("HEAD"), cancellable = true)
     public void getGamma(CallbackInfoReturnable<SimpleOption<Double>> cir) {
-        SimpleOption<Double> fullbrightGamma = new SimpleOption<Double>("optiong.fullbright",
+        var fullbrightGamma = new SimpleOption<>("optiong.fullbright",
                 SimpleOption.emptyTooltip(),
                 (x, y) -> Text.literal("No more dark place"),
                 SimpleOption.DoubleSliderCallbacks.INSTANCE,
                 999.0,
-                x -> {}
+                x -> {
+                }
         );
 
         cir.setReturnValue(ISuck.config.Fullbright ? fullbrightGamma : gamma);

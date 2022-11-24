@@ -1,10 +1,8 @@
 package net.trainsley69.isuck.mixin;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -12,8 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
-import net.minecraft.item.ToolItem;
-import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket.Action;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
@@ -26,6 +22,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
@@ -51,7 +49,7 @@ public class ClientPlayerInteractionManagerMixin {
         if (!ISuck.config.FastBreak) return;
         if (this.currentBreakingProgress >= 1) return;
         Action action = Action.STOP_DESTROY_BLOCK;
-        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(action, pos, direction));
+        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(action, pos, direction));
     }
 
     @Inject(at = @At("HEAD"), method = "attackBlock")
@@ -59,7 +57,11 @@ public class ClientPlayerInteractionManagerMixin {
         if (!ISuck.config.AutoTool) return;
         // Get the client, inventory and blockstate
         MinecraftClient client = MinecraftClient.getInstance();
-        BlockState state = client.world.getBlockState(pos);
+        BlockState state = null;
+        if (client.world != null) {
+            state = client.world.getBlockState(pos);
+        }
+        assert client.player != null;
         PlayerInventory inventory = client.player.getInventory();
         // Try to find the most efficient item
         ItemStack mostEfficientItem = getMostEfficientTool(inventory, state);
@@ -70,7 +72,7 @@ public class ClientPlayerInteractionManagerMixin {
             if (bestSlot == -1) return;
             // Move around the slots
             inventory.selectedSlot = bestSlot;
-            client.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(inventory.selectedSlot));
+            Objects.requireNonNull(client.getNetworkHandler()).sendPacket(new UpdateSelectedSlotC2SPacket(inventory.selectedSlot));
         }
     }
 

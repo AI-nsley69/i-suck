@@ -6,7 +6,7 @@ import net.minecraft.item.Items;
 import java.util.Set;
 
 public class AutoReplantHelper {
-    private static Set acceptedItems = Set.of(
+    private static final Set<Item> acceptedItems = Set.of(
             Items.WHEAT_SEEDS,
             Items.BEETROOT_SEEDS,
             Items.CARROT,

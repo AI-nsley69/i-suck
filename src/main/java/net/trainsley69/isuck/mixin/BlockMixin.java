@@ -31,19 +31,23 @@ public class BlockMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         World level = client.world;
         // Return if the option isn't toggled or if it's not the client
-        if (!ISuck.config.AutoReplant || !level.isClient) return;
+        if (!ISuck.config.AutoReplant || !(level != null && level.isClient)) return;
         // Get the player entity and block
         PlayerEntity player = client.player;
         Block block = state.getBlock();
         // Check if the block is a crop, then get the main item and see if it's a valid seed
         if (block instanceof CropBlock) {
+            assert player != null;
             Item item = player.getMainHandStack().getItem();
             if (!isCrop(item)) return;
             // Make a new BlockHitResult with the block below
             BlockHitResult oldHit = (BlockHitResult)client.crosshairTarget;
+            assert oldHit != null;
             BlockHitResult hitMePapi = new BlockHitResult(oldHit.getPos(), Direction.UP, pos.offset(Direction.Axis.Y, -1), oldHit.isInsideBlock());
             // interact with the block using the new blockhitresult
-            client.interactionManager.interactBlock(client.player, Hand.MAIN_HAND, hitMePapi);
+            if (client.interactionManager != null) {
+                client.interactionManager.interactBlock(client.player, Hand.MAIN_HAND, hitMePapi);
+            }
         }
     }
 

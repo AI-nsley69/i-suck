@@ -26,7 +26,9 @@ public abstract class FishingBobberEntityMixin {
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (caughtFish && ISuck.config.AutoFish && this.getPlayerOwner() == client.player) {
-            client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
+            if (client.interactionManager != null) {
+                client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
+            }
             ISuck.Shared.recastDelay = 6;
         }
     }

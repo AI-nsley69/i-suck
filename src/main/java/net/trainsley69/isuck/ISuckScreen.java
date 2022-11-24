@@ -8,8 +8,8 @@ import net.minecraft.text.Text;
 import net.trainsley69.isuck.utils.XRayHelper;
 
 public class ISuckScreen extends Screen {
-    private Screen parent;
-    private GameOptions settings;
+    private final Screen parent;
+    private final GameOptions settings;
 
     public ISuckScreen(Screen parent, GameOptions settings) {
         super(Text.literal("I Suck"));
@@ -33,7 +33,7 @@ public class ISuckScreen extends Screen {
 
         // LEFT ROW
         // Autofishing button
-        this.addDrawableChild(new ButtonWidget(width1, (height + 1 * 24) - y, buttonW, buttonH, getText("AutoFishing", ISuck.config.AutoFish),
+        this.addDrawableChild(new ButtonWidget(width1, (height + 24) - y, buttonW, buttonH, getText("AutoFishing", ISuck.config.AutoFish),
                 btn -> {
                     ISuck.config.AutoFish = !ISuck.config.AutoFish;
                     btn.setMessage(getText("AutoFishing", ISuck.config.AutoFish));
@@ -63,7 +63,7 @@ public class ISuckScreen extends Screen {
                 }));
         // RIGHT ROW
         // Fullbright
-        this.addDrawableChild(new ButtonWidget(width2, (height + 1 * 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
+        this.addDrawableChild(new ButtonWidget(width2, (height + 24) - y, buttonW, buttonH, getText("Fullbright", ISuck.config.Fullbright),
                 btn -> {
                     ISuck.config.Fullbright = !ISuck.config.Fullbright;
                     btn.setMessage(getText("Fullbright", ISuck.config.Fullbright));
@@ -94,6 +94,7 @@ public class ISuckScreen extends Screen {
         // Back button
         this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + 6 * 24) - y, backButtonW, 20, ScreenTexts.BACK,
                 btn -> {
+                    assert this.client != null;
                     this.client.setScreen(this.parent);
                 }));
     }

@@ -27,8 +27,6 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
     private int restoreCounter = 0;
     private boolean wasTriggered = false;
 
-    private int recastCounter = 0;
-
     public ClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
         super(world, pos, yaw, gameProfile, publicKey);
     }

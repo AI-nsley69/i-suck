@@ -8,7 +8,7 @@ import net.trainsley69.isuck.ISuck;
 import java.util.Set;
 
 public class XRayHelper {
-    private static Set allowedBlocks = Set.of(
+    private static final Set<Block> allowedBlocks = Set.of(
             Blocks.COAL_ORE,
             Blocks.DEEPSLATE_COAL_ORE,
             Blocks.IRON_ORE,
