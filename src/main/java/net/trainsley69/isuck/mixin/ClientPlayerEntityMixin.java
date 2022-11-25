@@ -42,6 +42,16 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         if (ISuck.config.AutoFish) checkRecast();
 
         if (ISuck.config.AutoReplant) checkReplant();
+
+        if (ISuck.config.DolphinHack) dolphinLogic();
+    }
+
+    private void dolphinLogic() {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (!client.player.isWet() || client.player.isSneaking()) return;
+
+        Vec3d v = client.player.getVelocity();
+        client.player.setVelocity(v.x, v.y + 0.04, v.z);
     }
 
     private void flyingLogic(PlayerAbilities abilities) {

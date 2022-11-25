@@ -58,3 +58,6 @@ Passive - Green
 
 ## JumpHack
 Change how high you can jump, higher number becomes less accurate with the value
+
+## DolphinHack
+Swim like a (irl) dolphin! Will boost you up in water whenever you're not swimming

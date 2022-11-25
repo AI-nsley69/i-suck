@@ -17,7 +17,8 @@ public class ISuckScreen extends Screen {
             new FlyHackOption("FlyHack", Option.Type.BUTTON),
             new XRayOption("XRay", Option.Type.BUTTON),
             new NoAbuseOption("NoAbuse", Option.Type.BUTTON),
-            new JumpHackOption("JumpHack", Option.Type.SLIDER)
+            new JumpHackOption("JumpHack", Option.Type.SLIDER),
+            new DolphinHackOption("DolphinHack", Option.Type.BUTTON)
     };
 
     Option[] row2 = {

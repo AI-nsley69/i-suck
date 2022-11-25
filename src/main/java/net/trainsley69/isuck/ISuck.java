@@ -110,6 +110,8 @@ public class ISuck implements ModInitializer {
 		public boolean EntityGlow = false;
 
         public float JumpHack = 0;
+
+        public boolean DolphinHack = false;
     }
 
 	public static class Shared {
