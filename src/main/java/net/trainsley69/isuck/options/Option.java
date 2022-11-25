@@ -41,6 +41,7 @@ public class Option {
 
     public enum Type {
         SLIDER,
-        BUTTON
+        BUTTON,
+        NONE,
     }
 }

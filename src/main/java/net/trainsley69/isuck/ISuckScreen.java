@@ -2,11 +2,14 @@ package net.trainsley69.isuck;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.trainsley69.isuck.options.*;
+import net.trainsley69.isuck.screens.AutoScreen;
+import net.trainsley69.isuck.screens.ExtraScreen;
+import net.trainsley69.isuck.screens.MovementScreen;
+import net.trainsley69.isuck.screens.RenderScreen;
 
 public class ISuckScreen extends Screen {
     private final Screen parent;
@@ -41,100 +44,47 @@ public class ISuckScreen extends Screen {
     }
 
     protected void init() {
-        int length = Math.max(row1.length, row2.length);
+        int length = 4;
         int y = length / 2;
-        int buttonW = Math.min(this.width / 4, 200);
+        int buttonW = Math.min(this.width / 4, 240);
         int buttonH = 20;
-        int buttonOffset = 4;
         int height = this.height / 5;
-        int width1 = this.width / 3 - buttonOffset - (buttonW / 2);
-        int width2 = this.width - this.width / 3 - buttonOffset - (buttonW / 2);
+        int width1 = this.width / 2 - (buttonW / 2);
 
-        // LEFT ROW
-        for (int i = 0; i < row1.length; i++) {
-            Option option = row1[i];
-            int nextHeight = height + (i+1) * 24 - y;
-            switch (option.getType()) {
-                case BUTTON -> {
-                    this.addDrawableChild(new ButtonWidget(
-                            width1,
-                            nextHeight,
-                            buttonW,
-                            buttonH,
-                            option.getText(),
-                            option::onToggle
-                    ));
+        this.addDrawableChild(new ButtonWidget(width1, height + (1 * 24) - y, buttonW, buttonH, Text.literal("Movement"),
+                btn -> {
+                    assert this.client != null;
+                    this.client.setScreen(new MovementScreen(this, settings));
                 }
-                case SLIDER -> {
-                    this.addDrawableChild(new SliderWidget(
-                            width1,
-                            nextHeight,
-                            buttonW,
-                            buttonH,
-                            option.getText(),
-                            option.getSliderValue()
-                    ) {
-                        @Override
-                        protected void updateMessage() {
-                            option.onToggle(this);
-                        }
+        ));
 
-                        @Override
-                        protected void applyValue() {
-                            option.applyValue(this.value);
-                        }
-                    });
+        this.addDrawableChild(new ButtonWidget(width1, height + (2 * 24) - y, buttonW, buttonH, Text.literal("Render"),
+                btn -> {
+                    assert this.client != null;
+                    this.client.setScreen(new RenderScreen(this, settings));
                 }
-            }
-        }
-        // RIGHT ROW
-        for (int i = 0; i < row2.length; i++) {
-            Option option = row2[i];
-            int nextHeight = height + (i+1) * 24 - y;
-            switch (option.getType()) {
-                case BUTTON -> {
-                    this.addDrawableChild(new ButtonWidget(
-                            width2,
-                            nextHeight,
-                            buttonW,
-                            buttonH,
-                            option.getText(),
-                            option::onToggle
-                    ));
-                }
-                case SLIDER -> {
-                    this.addDrawableChild(new SliderWidget(
-                            width2,
-                            nextHeight,
-                            buttonW,
-                            buttonH,
-                            option.getText(),
-                            option.getSliderValue()
-                    ) {
-                        @Override
-                        protected void updateMessage() {
-                            option.onToggle(this);
-                        }
+        ));
 
-                        @Override
-                        protected void applyValue() {
-                            option.applyValue(this.value);
-                        }
-                    });
+        this.addDrawableChild(new ButtonWidget(width1, height + (3 * 24) - y, buttonW, buttonH, Text.literal("AutoHacks"),
+                btn -> {
+                    assert this.client != null;
+                    this.client.setScreen(new AutoScreen(this, settings));
                 }
-            }
-        }
+        ));
 
-        int backButtonW = Math.min((int)(buttonW * 1.75), 300);
+        this.addDrawableChild(new ButtonWidget(width1, height + (4 * 24) - y, buttonW, buttonH, Text.literal("Extra"),
+                btn -> {
+                    assert this.client != null;
+                    this.client.setScreen(new ExtraScreen(this, settings));
+                }
+        ));
+
+        int backButtonW = Math.min((int)(buttonW * 1.25), 300);
         // Back button
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + (length + 1) * 24) - y, backButtonW, 20, ScreenTexts.BACK,
+        this.addDrawableChild(new ButtonWidget(this.width / 2 - (backButtonW / 2), (height + (length + 1) * 24) - y, backButtonW, buttonH, ScreenTexts.BACK,
                 btn -> {
                     assert this.client != null;
                     this.client.setScreen(this.parent);
                 }));
-    }
-
-    private Text getText(String text, Boolean toggled) {
-        return Text.literal(text + ": " + (toggled ? "Enabled" : "Disabled"));
     }
 }
