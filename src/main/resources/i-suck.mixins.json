@@ -16,7 +16,9 @@
     "FishingBobberEntityMixin",
     "FluidRendererMixin",
     "GameMenuScreenMixin",
+    "GameOptionsMixin",
     "GammaMixin",
+    "KeyBindingMixin",
     "MinecraftClientMixin"
   ],
   "injectors": {
