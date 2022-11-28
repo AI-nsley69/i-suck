@@ -25,12 +25,18 @@ public class GlowHelper {
         return entity instanceof ClientPlayerEntity;
     }
 
+
+    public static final int GOLD_COLOR = 16777215;
+    public static final int DARK_RED_COLOR = 11141120;
+    public static final int GREEN_COLOR = 5635925;
+    public static final int NO_COLOR = -1;
+
     public static int getGlowColor(EntityType entity) {
         switch (entity) {
-            case Player -> { return 16777215; }
-            case Hostile -> { return 11141120; }
-            case Passive -> { return 5635925; }
-            default -> { return -1; }
+            case Player -> { return GOLD_COLOR; }
+            case Hostile -> { return DARK_RED_COLOR; }
+            case Passive -> { return GREEN_COLOR; }
+            default -> { return NO_COLOR; }
         }
     }
 }

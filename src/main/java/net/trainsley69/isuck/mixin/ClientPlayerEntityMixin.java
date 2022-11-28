@@ -87,6 +87,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
             motionY = antiKick;
             tickCounter = 0;
             wasTriggered = true;
+            client.player.setOnGround(true);
         }
 
         if (wasTriggered) {

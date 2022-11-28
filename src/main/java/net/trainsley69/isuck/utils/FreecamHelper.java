@@ -55,7 +55,9 @@ public class FreecamHelper extends ClientPlayerEntity {
         if (ISuck.config.Freecam) create();
         else {
             MinecraftClient client = MinecraftClient.getInstance();
-            client.gameRenderer.setRenderHand(true);
+            if (client.interactionManager.getCurrentGameMode() != GameMode.SPECTATOR) {
+                client.gameRenderer.setRenderHand(true);
+            }
             client.setCameraEntity(client.player);
             client.chunkCullingEnabled = true;
             if (client.player != null) {
