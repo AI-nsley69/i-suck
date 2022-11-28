@@ -32,11 +32,11 @@ public class GlowHelper {
     public static final int NO_COLOR = -1;
 
     public static int getGlowColor(EntityType entity) {
-        switch (entity) {
-            case Player -> { return GOLD_COLOR; }
-            case Hostile -> { return DARK_RED_COLOR; }
-            case Passive -> { return GREEN_COLOR; }
-            default -> { return NO_COLOR; }
-        }
+        return switch (entity) {
+            case Player -> GOLD_COLOR;
+            case Hostile -> DARK_RED_COLOR;
+            case Passive -> GREEN_COLOR;
+            default -> NO_COLOR;
+        };
     }
 }
