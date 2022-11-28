@@ -1,5 +1,20 @@
 {
-  "AutoFish": false,
-  "Flying": false,
-  "Fullbright": false
+  "Class": {
+    "AutoFish": false,
+    "Flying": false,
+    "Fullbright": false,
+    "AutoReplant":false,
+    "XRay": false,
+    "NoFog": false,
+    "NoAbuse": false,
+    "FastBreak": false,
+    "AutoTool": false,
+    "EntityGlow": false,
+    "JumpHack":0.0,
+    "DolphinHack": false,
+    "Freecam": false
+  },
+  "Keybinds": {
+    "Freecam": "key.keyboard.g"
+  }
 }

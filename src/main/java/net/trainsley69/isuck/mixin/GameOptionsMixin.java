@@ -3,6 +3,7 @@ package net.trainsley69.isuck.mixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
+import net.trainsley69.isuck.ISuck;
 import net.trainsley69.isuck.input.KeyBindings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,14 +21,7 @@ public class GameOptionsMixin {
     @Shadow @Final @Mutable private KeyBinding[] allKeys;
     @Shadow private MinecraftClient client;
 
-    @Inject(
-            method = "<init>",
-            at = @At(
-                    value = "INVOKE",
-                    shift = At.Shift.BEFORE,
-                    target = "Lnet/minecraft/client/option/GameOptions;load()V"
-            )
-    )
+    @Inject(method = "<init>", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, target = "Lnet/minecraft/client/option/GameOptions;load()V"))
     private void initOptions(CallbackInfo ci) {
         Collection<KeyBinding> isuckKeys = KeyBindings.getKeyBindings();
 
@@ -41,5 +35,10 @@ public class GameOptionsMixin {
         for (KeyBinding key : isuckKeys) {
             allKeys[index++] = key;
         }
+    }
+
+    @Inject(at = @At("HEAD"), method = "write")
+    public void write(CallbackInfo ci) {
+        ISuck.writeConfig();
     }
 }

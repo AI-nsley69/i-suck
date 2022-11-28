@@ -1,7 +1,8 @@
 package net.trainsley69.isuck.input;
 
 import net.minecraft.client.option.KeyBinding;
-import org.lwjgl.glfw.GLFW;
+import net.minecraft.client.util.InputUtil;
+import net.trainsley69.isuck.ISuck;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -23,8 +24,12 @@ public class KeyBindings {
         return Collections.unmodifiableCollection(KEY_BINDINGS.values());
     }
 
+    public static int getGlfwKey(String key) {
+        return InputUtil.fromTranslationKey(key).getCode();
+    }
+
     static {
         MAIN = "I Suck";
-        TOGGLE_FREECAM = registerKeyBind(new KeyBinding("key.isuck.freecam", GLFW.GLFW_KEY_G, MAIN), "freecam");
+        TOGGLE_FREECAM = registerKeyBind(new KeyBinding("Freecam Toggle", getGlfwKey(ISuck.keybinds.Freecam), MAIN), "freecam");
     }
 }
