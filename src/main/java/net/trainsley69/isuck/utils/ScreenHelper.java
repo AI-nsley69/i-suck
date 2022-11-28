@@ -17,9 +17,8 @@ public class ScreenHelper extends Screen {
         Object[] rowButtons = new Object[row.length+1];
         int length = row.length;
         int y = length / 2;
-        int buttonW = Math.min(screen.width / 4, 200);
+        int buttonW = Math.min(screen.width / 4, 240);
         int buttonH = 20;
-        int buttonOffset = 4;
         int height = screen.height / 5;
         int width = screen.width / 2 - (buttonW / 2);
 

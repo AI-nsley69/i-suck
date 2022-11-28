@@ -42,6 +42,7 @@ public class ISuck implements ModInitializer {
 
 	private void verifyConfig(Config config) {
 		if (config.XRay) config.XRay = false;
+		if (config.Freecam) config.Freecam = false;
 		if (config.NoFog && ModDetection.isSodiumPresent()) config.NoFog = false;
 	}
 
@@ -112,6 +113,8 @@ public class ISuck implements ModInitializer {
         public float JumpHack = 0;
 
         public boolean DolphinHack = false;
+
+        public boolean Freecam = false;
     }
 
 	public static class Shared {

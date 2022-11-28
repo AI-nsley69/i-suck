@@ -61,3 +61,6 @@ Change how high you can jump, higher number becomes less accurate with the value
 
 ## DolphinHack
 Swim like a (irl) dolphin! Will boost you up in water whenever you're not swimming
+
+## Freecam
+Allows you to enter a fake spectator player and fly around in loaded chunks

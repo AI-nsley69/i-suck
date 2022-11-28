@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.trainsley69.isuck.ISuck;
+import net.trainsley69.isuck.utils.FreecamHelper;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,6 +34,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method="tick()V", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
+        if (ISuck.config.Freecam) freecamLogic();
         PlayerAbilities abilities = this.getAbilities();
         if (ISuck.config.Flying) flyingLogic(abilities);
         else {
@@ -44,6 +46,13 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
         if (ISuck.config.AutoReplant) checkReplant();
 
         if (ISuck.config.DolphinHack) dolphinLogic();
+    }
+
+    private void freecamLogic() {
+        FreecamHelper fakePlayer = FreecamHelper.getFakePlayer();
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (this.equals(client.player)) return;
+        FreecamHelper.updateMovement();
     }
 
     private void dolphinLogic() {

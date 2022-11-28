@@ -20,6 +20,7 @@ AutoTool
 EntityGlow
 JumpHack
 DolphinHack
+Freecam
 ```
 [Features explanation](https://github.com/AI-nsley69/i-suck/blob/1.19/FEATURES.md)
 

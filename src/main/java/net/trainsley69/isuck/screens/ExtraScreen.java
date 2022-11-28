@@ -7,6 +7,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.trainsley69.isuck.ISuck;
 import net.trainsley69.isuck.options.FastBreakOption;
+import net.trainsley69.isuck.options.FreecamOption;
 import net.trainsley69.isuck.options.NoAbuseOption;
 import net.trainsley69.isuck.options.Option;
 import net.trainsley69.isuck.utils.ScreenHelper;
@@ -28,7 +29,8 @@ public class ExtraScreen extends Screen {
 
     Option[] row1 = {
             new FastBreakOption("FastBreak", Option.Type.BUTTON),
-            new NoAbuseOption("NoAbuse", Option.Type.BUTTON)
+            new NoAbuseOption("NoAbuse", Option.Type.BUTTON),
+            new FreecamOption("Freecam", Option.Type.BUTTON)
     };
 
     protected void init() {

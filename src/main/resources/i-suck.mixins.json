@@ -12,6 +12,7 @@
     "BlockModelRendererMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerMixin",
+    "ClientPlayNetworkHandlerMixin",
     "FishingBobberEntityMixin",
     "FluidRendererMixin",
     "GameMenuScreenMixin",
