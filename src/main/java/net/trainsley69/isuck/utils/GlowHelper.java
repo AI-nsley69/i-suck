@@ -26,9 +26,9 @@ public class GlowHelper {
     }
 
 
-    public static final int GOLD_COLOR = 16777215;
-    public static final int DARK_RED_COLOR = 11141120;
-    public static final int GREEN_COLOR = 5635925;
+    public static final int GOLD_COLOR = 0xFFAA00;
+    public static final int DARK_RED_COLOR = 0xAA0000;
+    public static final int GREEN_COLOR = 0x55FF55;
     public static final int NO_COLOR = -1;
 
     public static int getGlowColor(EntityType entity) {
