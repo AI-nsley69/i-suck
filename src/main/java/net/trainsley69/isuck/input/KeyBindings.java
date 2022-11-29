@@ -14,6 +14,8 @@ public class KeyBindings {
 
     public static final String MAIN;
     public static final KeyBinding TOGGLE_FREECAM;
+    public static final KeyBinding TOGGLE_XRAY;
+    public static final KeyBinding TOGGLE_FLYING;
 
     private static KeyBinding registerKeyBind(KeyBinding keyBinding, String name) {
         KEY_BINDINGS.putIfAbsent(name, keyBinding);
@@ -31,5 +33,7 @@ public class KeyBindings {
     static {
         MAIN = "I Suck";
         TOGGLE_FREECAM = registerKeyBind(new KeyBinding("Freecam Toggle", getGlfwKey(ISuck.keybinds.Freecam), MAIN), "freecam");
+        TOGGLE_XRAY = registerKeyBind(new KeyBinding("XRay Toggle", getGlfwKey(ISuck.keybinds.XRay), MAIN), "xray");
+        TOGGLE_FLYING = registerKeyBind(new KeyBinding("Flyhack Toggle", getGlfwKey(ISuck.keybinds.Flying), MAIN), "flyhack");
     }
 }

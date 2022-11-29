@@ -66,7 +66,7 @@ public class ISuck implements ModInitializer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else
+		}
 		// If the file exists, is not a folder and is readable, read it
 		if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
 			String configData = Files.readString(configFile.toPath());
@@ -142,6 +142,8 @@ public class ISuck implements ModInitializer {
 
 	public static class Keybinds {
 			public String Freecam = "key.keyboard.g";
+			public String XRay = "key.keyboard.x";
+			public String Flying = "key.keyboard.b";
 	}
 
 	public static class Shared {
