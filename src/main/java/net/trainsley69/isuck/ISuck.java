@@ -117,6 +117,8 @@ public class ISuck implements ModInitializer {
 
 	private static void updateKeybinds() {
 		keybinds.Freecam = KeyBindings.TOGGLE_FREECAM.getBoundKeyTranslationKey();
+		keybinds.XRay = KeyBindings.TOGGLE_XRAY.getBoundKeyTranslationKey();
+		keybinds.Flying = KeyBindings.TOGGLE_FLYING.getBoundKeyTranslationKey();
 	}
 
 	public static void reloadRenderer() {
