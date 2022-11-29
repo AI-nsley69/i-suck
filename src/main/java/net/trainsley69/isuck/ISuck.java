@@ -3,6 +3,7 @@ package net.trainsley69.isuck;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -60,19 +61,30 @@ public class ISuck implements ModInitializer {
 		File configFile = new File(configPath.toFile(), fileName);
 		// Create the file if it doesn't exist
 		if (!configFile.exists()) {
-			try (InputStream input = ISuck.class.getResourceAsStream("/assets/i-suck.json")) {
-				Files.createDirectories(configPath);
-				Files.copy(Objects.requireNonNull(input, "Jar or class loader is bad."), configFile.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			writeDefaultConfig();
 		}
 		// If the file exists, is not a folder and is readable, read it
 		if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
 			String configData = Files.readString(configFile.toPath());
-			JsonObject json = (JsonObject)new JsonParser().parse(configData);
-			config = gson.fromJson(json.get("Class"), Config.class);
-			keybinds = gson.fromJson(json.get("Keybinds"), Keybinds.class);
+			try {
+				JsonObject json = (JsonObject)new JsonParser().parse(configData);
+				config = gson.fromJson(json.get("Class"), Config.class);
+				keybinds = gson.fromJson(json.get("Keybinds"), Keybinds.class);
+			} catch (JsonSyntaxException err) {
+				writeDefaultConfig();
+			}
+		}
+	}
+
+	private void writeDefaultConfig() {
+		String fileName = "i-suck.json";
+		Path configPath = FabricLoader.getInstance().getConfigDir();
+		File configFile = new File(configPath.toFile(), fileName);
+		try (InputStream input = ISuck.class.getResourceAsStream("/assets/i-suck.json")) {
+			Files.createDirectories(configPath);
+			Files.copy(Objects.requireNonNull(input, "Jar or class loader is bad."), configFile.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
