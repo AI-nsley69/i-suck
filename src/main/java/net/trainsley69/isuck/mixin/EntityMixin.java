@@ -16,7 +16,7 @@ public class EntityMixin {
     private void isGlowing(CallbackInfoReturnable<Boolean> cr) {
         if (ISuck.config.EntityGlow) {
             EntityType entity = GlowHelper.getEntityType((Entity) (Object)this);
-            if (entity != EntityType.Invalid) cr.setReturnValue(true);
+            if (entity != EntityType.INVALID) cr.setReturnValue(true);
         }
     }
 

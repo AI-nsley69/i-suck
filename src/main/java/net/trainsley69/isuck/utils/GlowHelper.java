@@ -8,17 +8,17 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class GlowHelper {
     public enum EntityType {
-            Hostile,
-            Passive,
-            Player,
-            Invalid
+        HOSTILE,
+        PASSIVE,
+        PLAYER,
+        INVALID
     }
 
     public static EntityType getEntityType(Entity entity) {
-        if (entity instanceof PlayerEntity && !isPlayer(entity)) return EntityType.Player;
-        if (entity instanceof HostileEntity) return EntityType.Hostile;
-        if (entity instanceof PassiveEntity) return EntityType.Passive;
-        return EntityType.Invalid;
+        if (entity instanceof PlayerEntity && !isPlayer(entity)) return EntityType.PLAYER;
+        if (entity instanceof HostileEntity) return EntityType.HOSTILE;
+        if (entity instanceof PassiveEntity) return EntityType.PASSIVE;
+        return EntityType.INVALID;
     }
 
     private static boolean isPlayer(Entity entity) {
@@ -33,9 +33,9 @@ public class GlowHelper {
 
     public static int getGlowColor(EntityType entity) {
         return switch (entity) {
-            case Player -> GOLD_COLOR;
-            case Hostile -> DARK_RED_COLOR;
-            case Passive -> GREEN_COLOR;
+            case PLAYER -> GOLD_COLOR;
+            case HOSTILE -> DARK_RED_COLOR;
+            case PASSIVE -> GREEN_COLOR;
             default -> NO_COLOR;
         };
     }

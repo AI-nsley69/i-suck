@@ -60,9 +60,7 @@ public class ISuck implements ModInitializer {
 		Path configPath = FabricLoader.getInstance().getConfigDir();
 		File configFile = new File(configPath.toFile(), fileName);
 		// Create the file if it doesn't exist
-		if (!configFile.exists()) {
-			writeDefaultConfig();
-		}
+		if (!configFile.exists()) writeDefaultConfig();
 		// If the file exists, is not a folder and is readable, read it
 		if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
 			String configData = Files.readString(configFile.toPath());
