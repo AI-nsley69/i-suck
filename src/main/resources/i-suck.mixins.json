@@ -19,7 +19,8 @@
     "GameOptionsMixin",
     "GammaMixin",
     "KeyBindingMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

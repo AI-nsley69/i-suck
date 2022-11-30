@@ -13,6 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientPlayNetworkHandlerMixin {
     @Inject(at = @At("HEAD"), method = "sendPacket", cancellable = true)
     private void sendPacket(Packet<?> packet, CallbackInfo ci) {
-        if (ISuck.config.Freecam && packet instanceof PlayerMoveC2SPacket) ci.cancel();
+        if (shouldCancelPacket(packet)) ci.cancel();
+    }
+
+    public boolean shouldCancelPacket(Packet<?> packet) {
+        return ISuck.config.Freecam && packet instanceof PlayerMoveC2SPacket;
     }
 }

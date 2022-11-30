@@ -5,6 +5,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.trainsley69.isuck.ISuck;
+import net.trainsley69.isuck.utils.FakePlayer;
 import net.trainsley69.isuck.utils.FreecamHelper;
 import net.trainsley69.isuck.utils.XRayHelper;
 
@@ -36,7 +37,7 @@ public class InputHandler {
         var status = Text.literal(option ? "Enabled" : "Disabled");
         status.setStyle(status.getStyle().withFormatting(option ? Formatting.GREEN : Formatting.RED));
         text.append(status);
-        FreecamHelper fakePlayer = FreecamHelper.getFakePlayer();
+        FakePlayer fakePlayer = FakePlayer.getInstance();
         if (fakePlayer != null) {
             fakePlayer.sendMessage(text, true);
         } else {

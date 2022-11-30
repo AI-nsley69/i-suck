@@ -49,7 +49,6 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntity {
     }
 
     private void freecamLogic() {
-        FreecamHelper fakePlayer = FreecamHelper.getFakePlayer();
         MinecraftClient client = MinecraftClient.getInstance();
         if (this.equals(client.player)) return;
         FreecamHelper.updateMovement();
