@@ -64,3 +64,6 @@ Swim like a (irl) dolphin! Will boost you up in water whenever you're not swimmi
 
 ## Freecam
 Allows you to enter a fake spectator player and fly around in loaded chunks
+
+## Rejoin button
+Allows you to rejoin the server if you disconnected

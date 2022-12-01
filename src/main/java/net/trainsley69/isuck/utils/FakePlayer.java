@@ -87,6 +87,8 @@ public class FakePlayer extends ClientPlayerEntity {
             this.getAbilities().setFlySpeed(0.15f);
             this.onGround = false;
             super.tickMovement();
+        } else {
+            super.tickMovement();
         }
     }
 }

@@ -13,6 +13,7 @@
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerMixin",
     "ClientPlayNetworkHandlerMixin",
+    "DisconnectedScreenMixin",
     "FishingBobberEntityMixin",
     "FluidRendererMixin",
     "GameMenuScreenMixin",
