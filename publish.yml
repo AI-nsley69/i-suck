@@ -1,0 +1,44 @@
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:        
+      - '**'           # Push events to every tag including hierarchical tags like v1.0/beta
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+        
+      - name: Publish
+        uses: Kir-Antipov/mc-publish@v3.2
+        with: 
+          github-generate-changelog: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files-primary: build/libs/!(*-@(dev|sources|javadoc)).jar
+          files-secondary: build/libs/(*-@(dev|sources|javadoc)).jar
+          
+          loaders: |
+            fabric
+            quilt
+            
+          java: 17
